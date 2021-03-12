@@ -1,12 +1,19 @@
-import * as express from 'express';
+import 'reflect-metadata';
 
-const app = express();
-app.get('/', (req, res) => {
-  res.send('Hello world');
-});
+import express from 'express';
 
-const PORT = process.env.PORT || 3000;
+import loaders from './loaders';
+import config from './config';
+import logger from './utils/logger';
 
-app.listen(PORT, () => {
-  console.log(`Server is running in http://localhost:${PORT}`);
-});
+async function startServer() {
+  const app = express();
+
+  await loaders({ expressApp: app });
+
+  app.listen(config.port, () => {
+    logger.info(`Server is running at port ${config.port}`);
+  });
+}
+
+startServer();
