@@ -1,9 +1,13 @@
 import { Router } from 'express';
-import post from './routes/posts';
+import posts from './routes/posts';
+import users from './routes/users';
+import auth from './routes/auth';
 
 export default () => {
   const app = Router();
-  post(app);
+  posts(app);
+  users(app);
+  auth(app);
 
   return app;
 };

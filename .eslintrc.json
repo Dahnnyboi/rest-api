@@ -16,6 +16,7 @@
     ],
     "rules": {
       "no-useless-constructor": "off",
+      "no-underscore-dangle": "off",
       "import/extensions": [
         "error",
         "ignorePackages",
