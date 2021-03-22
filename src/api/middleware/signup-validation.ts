@@ -3,6 +3,7 @@ import {
   Response,
   NextFunction,
 } from 'express';
+
 import logger from '../../utils/logger';
 
 export default (req: Request, res: Response, next: NextFunction) => {
@@ -10,15 +11,15 @@ export default (req: Request, res: Response, next: NextFunction) => {
 
   if (!name || name.length === 0) {
     logger.error('Users name cannot be empty!');
-    res.status(400).json({ message: 'Name cannot be empty' });
+    next({ message: 'User\'s name cannot be empty! ', status: 400 });
   }
   if (!password || password.length === 0) {
     logger.error('Users password cannot be empty!');
-    res.status(400).json({ message: 'Password cannot be empty' });
+    next({ message: 'User\'s password cannot be empty! ', status: 400 });
   }
   if (!email || email.length === 0) {
     logger.error('Users email cannot be empty!');
-    res.status(400).json({ message: 'Password cannot be empty' });
+    next({ message: 'User\'s email cannot be empty! ', status: 400 });
   }
 
   next();

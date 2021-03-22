@@ -6,9 +6,12 @@ import {
 } from 'express';
 import { Container } from 'typedi';
 
+import IPostRequest from '../../interfaces/IPostRequest';
 import PostService from '../../services/post';
 import PostModel from '../../models/post';
 import logger from '../../utils/logger';
+
+import postValidation from '../middleware/post-validation';
 
 const route = Router();
 Container.set('postModel', PostModel);
@@ -18,9 +21,11 @@ const postInstance = Container.get(PostService);
 export default (app: Router) => {
   app.use('/posts', route);
 
-  route.post('/', async (req: Request, res: Response, next: NextFunction) => {
+  route.post('/', postValidation, async (req: IPostRequest, res: Response, next: NextFunction) => {
+    const { title, description } = req.body;
+
     try {
-      await postInstance.createPost(req.body);
+      await postInstance.createPost({ title, description });
       res.status(200).json({ message: 'Successfully created a post!' });
     } catch (e) {
       logger.error(e);
@@ -50,10 +55,12 @@ export default (app: Router) => {
     }
   });
 
-  route.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
+  route.put('/:id', postValidation, async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
+    const { title, description } = req.body;
+
     try {
-      await postInstance.updatePostById(id, req.body);
+      await postInstance.updatePostById(id, { title, description });
       res.status(200).json({ message: 'Successfully updated a post!' });
     } catch (e) {
       logger.error(e);

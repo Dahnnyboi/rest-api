@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
-import IUser from '../interfaces/IUser';
+import IUserDocument from '../interfaces/IUserDocument';
 
 const UserSchema: Schema = new Schema({
   name: { type: String, required: true },
@@ -9,4 +9,4 @@ const UserSchema: Schema = new Schema({
   password: { type: String, required: true },
 }, { timestamps: true });
 
-export default mongoose.model<IUser>('User', UserSchema);
+export default mongoose.model<IUserDocument>('User', UserSchema);

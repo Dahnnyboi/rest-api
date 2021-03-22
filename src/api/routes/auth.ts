@@ -10,7 +10,7 @@ import { Container } from 'typedi';
 import AuthService from '../../services/auth';
 import logger from '../../utils/logger';
 import authValidation from '../middleware/auth-validation';
-import { IGetUserInfo } from '../../interfaces/IUserInfo';
+import IUserRequest from '../../interfaces/IUserRequest';
 
 const route = Router();
 
@@ -21,7 +21,7 @@ const authInstance = Container.get(AuthService);
 export default (app: Router) => {
   app.use('/auth', route);
 
-  route.post('/login', passport.authenticate('local'), async (req: IGetUserInfo, res: Response) => {
+  route.post('/login', passport.authenticate('local'), async (req: IUserRequest, res: Response) => {
     if (!req.user) res.status(400).json({ message: 'Cannot find user!' });
     const { _id, name, email } = req.user;
     const token = await authInstance.createToken(_id);

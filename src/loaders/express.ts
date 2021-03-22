@@ -63,7 +63,7 @@ export default ({ app } : { app: express.Application }) => {
   app.use(config.api.prefix, routes());
 
   app.use((req, res, next) => {
-    const err = new Error('Not Found');
+    const err = new Error('API routes is not found or Server Error');
     next(err);
   });
 
@@ -75,5 +75,14 @@ export default ({ app } : { app: express.Application }) => {
         .end();
     }
     return next(err);
+  });
+
+  app.use((err, req, res, next) => {
+    res.status(err.status || 500);
+    res.json({
+      errors: {
+        message: err.message,
+      },
+    });
   });
 };

@@ -14,7 +14,7 @@ export default class PostService {
     this.logger.info('New Post: ', post);
   }
 
-  public async getPostById(id: string): Promise<{ post: IPost }> {
+  public async getPostById(id: string): Promise<IPost> {
     const post = await this.postModel.findById(id);
     this.logger.info(`Post id: ${id} `, post);
 
