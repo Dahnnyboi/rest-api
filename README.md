@@ -1,6 +1,7 @@
 # REST API V1
 
 This project focuses in coding structure and style for creating a REST API using typescript
+
 This coding style and folder structure follows this guide [Bulletproof node.js project architecture](https://softwareontheroad.com/ideal-nodejs-project-structure/)
 
 ### Features
@@ -10,6 +11,7 @@ This coding style and folder structure follows this guide [Bulletproof node.js p
 
 ### Running locally
 Requirements: NodeJS and Git
+
 Create a instance of mongodb server and insert the uri on given .env.example and rename it as .env
 ```
   git clone https://github.com/Dahnnyboi/rest-api.git
